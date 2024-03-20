@@ -251,11 +251,11 @@ public class ScientificCalculator {
 		calculatorFrame = new JFrame();
 		calculatorFrame.setResizable(false);
 		calculatorFrame.setTitle("Sci-Calc");
-		calculatorFrame.getContentPane().setBackground(new Color(89, 65, 18));
+		calculatorFrame.getContentPane().setBackground(new Color(87, 126, 124));
 		calculatorFrame.getContentPane().setFont(new Font("Calibri", Font.PLAIN, 15));
 		calculatorFrame.getContentPane().setForeground(SystemColor.windowBorder);
 		calculatorFrame.getContentPane().setLayout(null);
-        calculatorFrame.setBounds(200, 200, 400, 539);
+        calculatorFrame.setBounds(200, 200, 390, 500);
 		calculatorFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
         
         // TEXT PANEL 
@@ -290,8 +290,8 @@ public class ScientificCalculator {
         // BUTTON PANEL
 		JPanel butttonPanel = new JPanel();
 		butttonPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		butttonPanel.setBackground(SystemColor.orange);
-		butttonPanel.setBounds(34, 120, 316, 360);
+		butttonPanel.setBackground(SystemColor.cyan);
+		butttonPanel.setBounds(34, 120, 316, 330);
 		butttonPanel.setLayout(new GridLayout(0, 5, 0, 0));
 		calculatorFrame.getContentPane().add(butttonPanel);
 		
@@ -603,7 +603,7 @@ public class ScientificCalculator {
 				num = true;
 			}
 		});
-		button17.setBackground(new Color(220, 220, 220));
+		button17.setBackground(new Color(100, 151, 177));
 		button17.setFont(new Font("Calibri Light", Font.PLAIN, 17));
 		butttonPanel.add(button17);
 		
@@ -624,7 +624,7 @@ public class ScientificCalculator {
 				num = true;
 			}
 		});
-		button18.setBackground(new Color(220, 220, 220));
+		button18.setBackground(new Color(100, 151, 177));
 		button18.setFont(new Font("Calibri Light", Font.PLAIN, 17));
 		butttonPanel.add(button18);
 
@@ -645,7 +645,7 @@ public class ScientificCalculator {
 				num = true;
 			}
 		});
-		button19.setBackground(new Color(220, 220, 220));
+		button19.setBackground(new Color(100, 151, 177));
 		button19.setFont(new Font("Calibri Light", Font.PLAIN, 17));
 		butttonPanel.add(button19);
 		
@@ -711,7 +711,7 @@ public class ScientificCalculator {
 				num = true;
 			}
 		});
-		button22.setBackground(new Color(220, 220, 220));
+		button22.setBackground(new Color(100, 151, 177));
 		button22.setFont(new Font("Calibri Light", Font.PLAIN, 17));
 		butttonPanel.add(button22);
 		
@@ -732,7 +732,7 @@ public class ScientificCalculator {
 				num = true;
 			}
 		});
-		button23.setBackground(new Color(220, 220, 220));
+		button23.setBackground(new Color(100, 151, 177));
 		button23.setFont(new Font("Calibri Light", Font.PLAIN, 17));
 		butttonPanel.add(button23);
 		
@@ -753,7 +753,7 @@ public class ScientificCalculator {
 				num = true;
 			}
 		});
-		button24.setBackground(new Color(220, 220, 220));
+		button24.setBackground(new Color(100, 151, 177));
 		button24.setFont(new Font("Calibri Light", Font.PLAIN, 17));
 		butttonPanel.add(button24);
 		
@@ -819,7 +819,7 @@ public class ScientificCalculator {
 				num = true;
 			}
 		});
-		button27.setBackground(new Color(220, 220, 220));
+		button27.setBackground(new Color(100, 151, 177));
 		button27.setFont(new Font("Calibri Light", Font.PLAIN, 17));
 		butttonPanel.add(button27);
 		
@@ -840,7 +840,7 @@ public class ScientificCalculator {
 				num = true;
 			}
 		});
-		button28.setBackground(new Color(220, 220, 220));
+		button28.setBackground(new Color(100, 151, 177));
 		button28.setFont(new Font("Calibri Light", Font.PLAIN, 17));
 		butttonPanel.add(button28);
 		
@@ -861,7 +861,7 @@ public class ScientificCalculator {
 				num = true;
 			}
 		});
-		button29.setBackground(new Color(220, 220, 220));
+		button29.setBackground(new Color(100, 151, 177));
 		button29.setFont(new Font("Calibri Light", Font.PLAIN, 17));
 		butttonPanel.add(button29);
 	
@@ -945,7 +945,7 @@ public class ScientificCalculator {
 				num = true;
 			}
 		});
-		button33.setBackground(new Color(220, 220, 220));
+		button33.setBackground(new Color(100, 151, 177));
 		button33.setFont(new Font("Calibri Light", Font.PLAIN, 17));
 		butttonPanel.add(button33);
 
@@ -998,7 +998,7 @@ public class ScientificCalculator {
 				token.clear();
 			}
 		});
-		button35.setBackground(Color.orange);
+		button35.setBackground(Color.cyan);
 		button35.setFont(new Font("Calibri Light", Font.PLAIN, 22));
 		butttonPanel.add(button35);
 	}
