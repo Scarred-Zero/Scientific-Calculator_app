@@ -19,11 +19,42 @@ public class ScientificCalculator {
 
 	JFrame calculatorFrame;
 	
+	// RESULT VARIABLE
 	String result = "";
 	
+	// EXPRESSION VARIABLE
 	String expression = "";
 	
 	ArrayList<String> token = new ArrayList<String>();
+
+    // THE ONE THAT READS SPECIFIC LINE OF A DOCUMENT
+    int enter = 0;
+    int enter1 = 1;
+
+    int enter2 = 2;
+    int enter3 = 3;
+
+    int enter4 = 4;
+    int enter5 = 5;
+
+    int enter6 = 6;
+    int enter7 = 7;
+
+    // HOLDS THE DATA OF SPECIFIED LINE OF A DOCUMENT
+    String line;
+    String line1;
+
+    String line2;
+    String line3;
+
+    String line4;
+    String line5;
+
+    String line6;
+    String line7;
+
+    // FLOW FOR THE DATA OF DOCUMENT THAT SHOWS IN HISTORY PANEL
+    int beqenter = 0;
 	
 	boolean num = false;  
 	
@@ -80,7 +111,7 @@ public class ScientificCalculator {
 			return false;
 	}
 	
-	// FOR PARENTHESIS OPERATIONS
+	// FOR INFIX TO POSTFIX CONVERSION
 	private String infixTopostfix() {
 		Stack<String> s = new Stack<String>();
 		String y;
@@ -208,6 +239,7 @@ public class ScientificCalculator {
 		return res;
 	}
 
+	// EVALUATION PROCESS
 	private double Eval(String p) {	
 		String tokens[] = p.split(",");
 		ArrayList<String> token2 = new ArrayList<String>();
@@ -264,18 +296,16 @@ public class ScientificCalculator {
 	
 	// FRAME DESIGN WITH THEIR ACTION LISTENERS
 	private void initialize() {
-
 		try {
-			
 			File history = new File("HistoryLog.doc");
 			history.createNewFile();
 			
 			history.delete();
 			
 			FileWriter historyfw = new FileWriter(history, true);
-			
+		
 			bool = history.exists();
-
+		
 			// CALCULATOR FRAME DESIGN
 			calculatorFrame = new JFrame();
 			calculatorFrame.setResizable(false);
@@ -285,6 +315,7 @@ public class ScientificCalculator {
 			calculatorFrame.getContentPane().setForeground(SystemColor.windowBorder);
 			calculatorFrame.getContentPane().setLayout(null);
 			calculatorFrame.setBounds(200, 200, 390, 500);
+			calculatorFrame.setSize(411,520); //gui.setSize(690,520);
 			calculatorFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 			
 			// TEXT PANEL 
@@ -292,7 +323,6 @@ public class ScientificCalculator {
 			textPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 			textPanel.setBounds(34, 25, 316, 80);
 			textPanel.setLayout(null);
-			
 			calculatorFrame.getContentPane().add(textPanel);
 			
 			// EXPRESSION LABEL
@@ -317,139 +347,239 @@ public class ScientificCalculator {
 			textField.setColumns(10);
 			textPanel.add(textField);
 
-			// BUTTON TO SHOW HISTORY PANEL
-			JButton slider = new JButton("||");
+			// SLIDER BUTTON TO SHOW HISTORY PANEL
+			JButton slider = new JButton("|||");
 			slider.setBounds(394,0,11,520);
 			slider.setForeground(Color.WHITE);
 			slider.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
 			slider.setBackground(new java.awt.Color(14, 9, 11));
+			calculatorFrame.getContentPane().add(slider);
+			slider.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String textFieldInput = textField.getText();
+					String action = e.getActionCommand();
+					textField.setText(" ");
+					//Tells whether a History Panel is opened or closed.	
+					int slide = 0;
+					if(action.equals("|||")) {
+						if(slide == 0) {
+							calculatorFrame.setSize(new Dimension(690,520));
+							textField.setText(textFieldInput);
+							slider.setBackground(new java.awt.Color(22, 22, 22));
+						slide=1;
+						}
+						else {
+							calculatorFrame.setSize(new Dimension(411,520));
+							textField.setText(textFieldInput);
+							slider.setBackground(new java.awt.Color(14, 9, 11));
+							slide = 0;
+						}
+					}
+				}
+			});
 
 			// HISTORY PANEL BUTTONS AND TEXTFIELDS
 			JLabel panelHistory = new JLabel("");
 			panelHistory.setBounds(405,0,284,491);
 			panelHistory.setForeground(Color.WHITE);
 			panelHistory.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-			panelHistory.setBackground(new java.awt.Color(27, 27, 28));
+			panelHistory.setBackground(new java.awt.Color(87, 126, 124));
 			panelHistory.setOpaque(true);
 
+			// HISTORY TEXT 
 			JTextField historyText = new JTextField("History");
 			historyText.setBounds(420,10,70,30);
 			historyText.setForeground(Color.WHITE);
 			historyText.setFont(new Font("Calibri", Font.BOLD, 20));
 			historyText.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-			historyText.setBackground(new java.awt.Color(27, 27, 28));
+			historyText.setBackground(new java.awt.Color(87, 126, 124));
 			historyText.setEditable(false);
+			calculatorFrame.getContentPane().add(historyText);
 
+			// HISTORY UNDERLINE 
 			JTextField historyUnderline = new JTextField("");
 			historyUnderline.setBounds(420,43,68,3);
 			historyUnderline.setForeground(Color.WHITE);
 			historyUnderline.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 			historyUnderline.setBackground(new java.awt.Color(254, 250, 43));
 			historyUnderline.setEditable(false);
+			calculatorFrame.getContentPane().add(historyUnderline);
 
+			// HISTORY EMPTY 
 			JTextField historyEmpty = new JTextField("There's no history yet");
 			historyEmpty.setBounds(420,60,155,14);
 			historyEmpty.setForeground(Color.WHITE);
 			historyEmpty.setFont(new Font("Calibri", Font.BOLD, 14));
 			historyEmpty.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-			historyEmpty.setBackground(new java.awt.Color(27, 27, 28));
+			historyEmpty.setBackground(new java.awt.Color(87, 126, 124));
 			historyEmpty.setEditable(false);
-
-			JTextField historyExpr = new JTextField("");
-			historyExpr.setBounds(415,75,260,15);
-			historyExpr.setForeground(Color.GRAY);
-			historyExpr.setFont(new Font("Calibri", Font.BOLD, 15));
-			historyExpr.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-			historyExpr.setBackground(new java.awt.Color(27, 27, 28));
-			historyExpr.setHorizontalAlignment(SwingConstants.RIGHT);
-			historyExpr.setEditable(false);
-
+			calculatorFrame.getContentPane().add(historyEmpty);
+			
+			// HISTORY ANSWER
 			JTextField historyAns = new JTextField("");
 			historyAns.setBounds(415,95,260,60);
 			historyAns.setForeground(Color.WHITE);
 			historyAns.setFont(new Font("Calibri", Font.BOLD, 52));
 			historyAns.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-			historyAns.setBackground(new java.awt.Color(27, 27, 28));
+			historyAns.setBackground(new java.awt.Color(87, 126, 124));
 			historyAns.setHorizontalAlignment(SwingConstants.RIGHT);
 			historyAns.setEditable(false);
+			calculatorFrame.getContentPane().add(historyAns);
+
+			// HISTORY EXPRESSION 
+			JTextField historyExpr = new JTextField("");
+			historyExpr.setBounds(415,75,260,15);
+			historyExpr.setForeground(Color.WHITE);
+			historyExpr.setFont(new Font("Calibri light", Font.BOLD, 15));
+			historyExpr.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+			historyExpr.setBackground(new java.awt.Color(87, 126, 124));
+			historyExpr.setHorizontalAlignment(SwingConstants.RIGHT);
+			historyExpr.setEditable(false);
+			calculatorFrame.getContentPane().add(historyExpr);
 
 			JTextField history1expr = new JTextField("");
 			history1expr.setBounds(415,160,260,30);
 			history1expr.setForeground(Color.GRAY);
 			history1expr.setFont(new Font("Calibri", Font.BOLD, 15));
 			history1expr.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-			history1expr.setBackground(new java.awt.Color(27, 27, 28));
+			history1expr.setBackground(new java.awt.Color(87, 126, 124));
 			history1expr.setHorizontalAlignment(SwingConstants.RIGHT);
 			history1expr.setEditable(false);
+			calculatorFrame.getContentPane().add(history1expr);
 
 			JTextField history1ans = new JTextField("");
 			history1ans.setBounds(415,185,260,60);
 			history1ans.setForeground(Color.WHITE);
 			history1ans.setFont(new Font("Calibri", Font.BOLD, 52));
 			history1ans.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-			history1ans.setBackground(new java.awt.Color(27, 27, 28));
+			history1ans.setBackground(new java.awt.Color(87, 126, 124));
 			history1ans.setHorizontalAlignment(SwingConstants.RIGHT);
 			history1ans.setEditable(false);
+			calculatorFrame.getContentPane().add(history1ans);
 
 			JTextField history2expr = new JTextField("");
 			history2expr.setBounds(415,250,260,30);
 			history2expr.setForeground(Color.GRAY);
 			history2expr.setFont(new Font("Calibri", Font.BOLD, 15));
 			history2expr.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-			history2expr.setBackground(new java.awt.Color(27, 27, 28));
+			history2expr.setBackground(new java.awt.Color(87, 126, 124));
 			history2expr.setHorizontalAlignment(SwingConstants.RIGHT);
 			history2expr.setEditable(false);
+			calculatorFrame.getContentPane().add(history2expr);
 			
 			JTextField history2ans = new JTextField("");
 			history2ans.setBounds(415,275,260,60);
 			history2ans.setForeground(Color.WHITE);
 			history2ans.setFont(new Font("Calibri", Font.BOLD, 52));
 			history2ans.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-			history2ans.setBackground(new java.awt.Color(27, 27, 28));
+			history2ans.setBackground(new java.awt.Color(87, 126, 124));
 			history2ans.setHorizontalAlignment(SwingConstants.RIGHT);
 			history2ans.setEditable(false);
+			calculatorFrame.getContentPane().add(history2ans);
 
 			JTextField history3expr = new JTextField("");
 			history3expr.setBounds(415,340,260,30);
 			history3expr.setForeground(Color.GRAY);
 			history3expr.setFont(new Font("Calibri", Font.BOLD, 15));
 			history3expr.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-			history3expr.setBackground(new java.awt.Color(27, 27, 28));
+			history3expr.setBackground(new java.awt.Color(87, 126, 124));
 			history3expr.setHorizontalAlignment(SwingConstants.RIGHT);
 			history3expr.setEditable(false);
+			calculatorFrame.getContentPane().add(history3expr);
 
 			JTextField history3ans = new JTextField("");
 			history3ans.setBounds(415,365,260,60);
 			history3ans.setForeground(Color.WHITE);
 			history3ans.setFont(new Font("Calibri", Font.BOLD, 52));
 			history3ans.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-			history3ans.setBackground(new java.awt.Color(27, 27, 28));
+			history3ans.setBackground(new java.awt.Color(87, 126, 124));
 			history3ans.setHorizontalAlignment(SwingConstants.RIGHT);
 			history3ans.setEditable(false);
+			calculatorFrame.getContentPane().add(history3ans);
 
+			JTextField fileIsOpened = new JTextField("");
+			fileIsOpened.setBounds(470,430,175,25);
+			fileIsOpened.setForeground(Color.WHITE);
+			fileIsOpened.setFont(new Font("Calibri", Font.BOLD, 12));
+			fileIsOpened.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+			fileIsOpened.setBackground(new java.awt.Color(87, 126, 124));
+			fileIsOpened.setEditable(false);
+			calculatorFrame.getContentPane().add(fileIsOpened);
+			fileIsOpened.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String textFieldInput = textField.getText();
+					String action = e.getActionCommand();
+					textField.setText(" ");
+					if(action.equals("Open History")) {
+						try {
+							Desktop.getDesktop().open(new java.io.File("HistoryLog.doc"));
+						} catch (IOException e1) {
+							
+							e1.printStackTrace();
+						}
+						fileIsOpened.setText("File is opened! Please wait..");
+						textField.setText(textFieldInput);
+						
+					}
+				}
+			});
+			
+			// FILE OPEN BUTTON
+			JButton fileOpen = new JButton("Open History");
+			fileOpen.setBounds(510,455,85,25);
+			fileOpen.setForeground(Color.WHITE);
+			fileOpen.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+			fileOpen.setBackground(new java.awt.Color(22, 22, 22));
+			calculatorFrame.getContentPane().add(fileOpen);
+			fileOpen.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String textFieldInput = textField.getText();
+					String action = e.getActionCommand();
+					textField.setText(" ");
+					if(action.equals("Open History")) {
+						try {
+							Desktop.getDesktop().open(new java.io.File("HistoryLog.doc"));
+						} catch (IOException e1) {
+							
+							e1.printStackTrace();
+						}
+						fileIsOpened.setText("File is opened! Please wait..");
+						textField.setText(textFieldInput);
+						
+					}
+				}
+			});
+
+			// FILE CLEAR BUTTON
 			JButton fileclear = new JButton("Clear History");
 			fileclear.setBounds(420,455,85,25);
 			fileclear.setForeground(Color.WHITE);
 			fileclear.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
 			fileclear.setBackground(new java.awt.Color(22, 22, 22));
+			calculatorFrame.getContentPane().add(fileclear);
+			fileclear.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String textFieldInput = textField.getText();
+					String action = e.getActionCommand();
+					textField.setText(" ");	
+					if(action.equals("Clear History")) {
+						historyText.setText("History");
+						historyUnderline.setText("  ");
+						textField.setText(textFieldInput);
+						historyEmpty.setText("There's no history yet");
+						historyExpr.setText("");
+						historyAns.setText("");
+						history1expr.setText("");
+						history1ans.setText("");
+						history2expr.setText("");
+						history2ans.setText("");
+						history3expr.setText("");
+						history3ans.setText("");
+						fileIsOpened.setText("");
+					}
+				}
+			});
 
-			JButton fileopen = new JButton("Open History");
-			fileopen.setBounds(510,455,85,25);
-			fileopen.setForeground(Color.WHITE);
-			fileopen.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
-			fileopen.setBackground(new java.awt.Color(22, 22, 22));
-
-			JTextField fileisopened = new JTextField("");
-			fileisopened.setBounds(470,430,175,25);
-			fileisopened.setForeground(Color.WHITE);
-			fileisopened.setFont(new Font("Calibri", Font.BOLD, 12));
-			fileisopened.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-			fileisopened.setBackground(new java.awt.Color(27, 27, 28));
-			fileisopened.setEditable(false);
-
-			// JTextField bt202p;
-
-			
 			// BUTTON PANEL
 			JPanel butttonPanel = new JPanel();
 			butttonPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -1137,37 +1267,231 @@ public class ScientificCalculator {
 			// ACTUAL FUNCTIONING ON CLICKING "EQUAL TO" BUTTON
 			JButton button35 = new JButton("=");
 			button35.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {	
+				public void actionPerformed(ActionEvent e) {
 					calculateMain();
-						String s = "";
+						String solving = "";
 						token.remove(token.size()-1);
 						for(String i: token) {
 							if(i.equals("/")) {
-								s += Character.toString((char)247);
+								solving += Character.toString((char)247);
 							}else if(i.equals("sqrt")) {
-								s += Character.toString((char)8730);
+								solving += Character.toString((char)8730);
 							}else if(i.equals("pi")) {
-								s += Character.toString((char)960);
+								solving += Character.toString((char)960);
 							}else {
-								s += i;
+								solving += i;
 							}
 						}
-						exprlabel.setText(s+"=");
+						exprlabel.setText(solving + "=");
+						historyExpr.setText(solving + "=");
 						textField.setText(result);
+						historyAns.setText(result);
+						historyEmpty.setText("");
+
+						// String action = e.getActionCommand();
+						// if(action.equals("=")) {
+							if(e.getSource() == "=") {
+								fileIsOpened.setText("");
+								historyText.setText("History");
+								historyUnderline.setText("  ");
+								
+								// IF STATEMENT TO HELP WRITE NEW LINES FROM THE HISTORY PANEL ONTO THE "HistoryLog.doc" file
+								if(beqenter == 0) {
+									// historyExpr and historyAns
+									try {
+										line = Files.readAllLines(Paths.get("HistoryLog.doc")).get(enter);
+										historyExpr.setText(line);
+										line1 = Files.readAllLines(Paths.get("HistoryLog.doc")).get(enter1);
+									} catch (IOException e1) {									
+										e1.printStackTrace();
+									}
+									historyAns.setText(line1);
+									
+								} else if(beqenter == 1) {
+									// historyExpr and historyAns
+									enter = enter + 2;
+									enter1= enter1 + 2;
+									try {
+										line = Files.readAllLines(Paths.get("HistoryLog.doc")).get(enter);
+										historyExpr.setText(line);
+										line1 = Files.readAllLines(Paths.get("HistoryLog.doc")).get(enter1);
+									} catch (IOException e1) {									
+										e1.printStackTrace();
+									}
+									historyAns.setText(line1);
+									
+									// history1expr and history1ans
+									enter2 = enter2 - 2;
+									enter3 = enter3 - 2;
+									try {
+										line2 = Files.readAllLines(Paths.get("HistoryLog.doc")).get(enter2);
+										history1expr.setText(line2);
+										line3 = Files.readAllLines(Paths.get("HistoryLog.doc")).get(enter3);
+									} catch (IOException e1) {									
+										e1.printStackTrace();
+									}
+									history1ans.setText(line3);
+									
+								}else if(beqenter == 2) {
+									// historyExpr and historyAns
+									enter = enter + 2;
+									enter1 = enter1 + 2;
+									try {
+										line = Files.readAllLines(Paths.get("HistoryLog.doc")).get(enter);
+										historyExpr.setText(line);
+										line1 = Files.readAllLines(Paths.get("HistoryLog.doc")).get(enter1);
+									} catch (IOException e1) {									
+										e1.printStackTrace();
+									}
+									historyAns.setText(line1);
+									
+									// history1expr and history1ans
+									enter2 = enter2 + 2;
+									enter3 = enter3 + 2;
+									try {
+										line2 = Files.readAllLines(Paths.get("HistoryLog.doc")).get(enter2);
+										history1expr.setText(line2);
+										line3 = Files.readAllLines(Paths.get("HistoryLog.doc")).get(enter3);
+									} catch (IOException e1) {									
+										e1.printStackTrace();
+									}
+									history1ans.setText(line3);
+									
+									// history2expr and history2ans
+									enter4 = enter4 - 4;
+									enter5 = enter5 - 4;
+									try {
+										line4 = Files.readAllLines(Paths.get("HistoryLog.doc")).get(enter4);
+										history2expr.setText(line4);
+										line5 = Files.readAllLines(Paths.get("HistoryLog.doc")).get(enter5);
+									} catch (IOException e1) {									
+										e1.printStackTrace();
+									}
+									history2ans.setText(line5);
+										
+								} else if (beqenter == 3) {
+									// historyExpr and historyAns
+									enter = enter + 2;
+									enter1 = enter1 + 2;
+									try {
+										line = Files.readAllLines(Paths.get("HistoryLog.doc")).get(enter);
+										historyExpr.setText(line);
+										line1 = Files.readAllLines(Paths.get("HistoryLog.doc")).get(enter1);
+									} catch (IOException e1) {									
+										e1.printStackTrace();
+									}
+									historyAns.setText(line1);
+									
+									// history1expr and history1ans
+									enter2 = enter2 + 2;
+									enter3 = enter3 + 2;
+									try {
+										line2 = Files.readAllLines(Paths.get("HistoryLog.doc")).get(enter2);
+										history1expr.setText(line2);
+										line3 = Files.readAllLines(Paths.get("HistoryLog.doc")).get(enter3);
+									} catch (IOException e1) {									
+										e1.printStackTrace();
+									}
+									history1ans.setText(line3);
+									
+									// history2expr and history2ans
+									enter4 = enter4 + 2;
+									enter5 = enter5 + 2;
+									try {
+										line4 = Files.readAllLines(Paths.get("HistoryLog.doc")).get(enter4);
+										history2expr.setText(line4);
+										line5 = Files.readAllLines(Paths.get("HistoryLog.doc")).get(enter5);
+									} catch (IOException e1) {									
+										e1.printStackTrace();
+									}
+									history2ans.setText(line5);
+									
+									// history3expr and history3ans
+									enter6 = enter6 - 6;
+									enter7 = enter7 - 6;
+									try {
+										line6 = Files.readAllLines(Paths.get("HistoryLog.doc")).get(enter6);
+										history3expr.setText(line6);
+										line7 = Files.readAllLines(Paths.get("HistoryLog.doc")).get(enter7);
+									} catch (IOException e1) {									
+										e1.printStackTrace();
+									}
+									history3ans.setText(line7);
+									
+								} else if (beqenter >= 4) {
+									// historyExpr and historyAns
+									enter = enter + 2;
+									enter1 = enter1 + 2;
+									try {
+										line = Files.readAllLines(Paths.get("HistoryLog.doc")).get(enter);
+										historyExpr.setText(line);
+										line1 = Files.readAllLines(Paths.get("HistoryLog.doc")).get(enter1);
+									} catch (IOException e1) {									
+										e1.printStackTrace();
+									}
+									historyAns.setText(line1);
+					
+									// history1expr and history1ans
+									enter2 = enter2 + 2;
+									enter3 = enter3 +2;
+									try {
+										line2 = Files.readAllLines(Paths.get("HistoryLog.doc")).get(enter2);
+										history1expr.setText(line2);
+										line3 = Files.readAllLines(Paths.get("HistoryLog.doc")).get(enter3);
+									} catch (IOException e1) {									
+										e1.printStackTrace();
+									}
+									history1ans.setText(line3);
+									
+									// history2expr and history2ans
+									enter4 = enter4 + 2;
+									enter5 = enter5 + 2;
+									try {
+										line4 = Files.readAllLines(Paths.get("HistoryLog.doc")).get(enter4);
+										history2expr.setText(line4);
+										line5 = Files.readAllLines(Paths.get("HistoryLog.doc")).get(enter5);
+									} catch (IOException e1) {									
+										e1.printStackTrace();
+									}
+									history2ans.setText(line5);
+									
+									// history3expr and history3ans
+									enter6 = enter6 + 2;
+									enter7 = enter7 + 2;
+									try {
+										line6 = Files.readAllLines(Paths.get("HistoryLog.doc")).get(enter6);
+										history3expr.setText(line6);
+										line7 = Files.readAllLines(Paths.get("HistoryLog.doc")).get(enter7);
+									} catch (IOException e1) {									
+										e1.printStackTrace();
+									}
+									history3ans.setText(line7);
+								}
+								beqenter++;
+							};
+						// };
+						try {
+							historyfw.write(solving + "=" +"\n"+ result + "\n");
+							historyfw.close();
+						} catch (IOException e1) {							
+							e1.printStackTrace();
+						}
 						
 						expression = result;
 						dot = true;
 						num = true;
 					token.clear();
+					
 				}
 			});
 			button35.setBackground(Color.cyan);
 			button35.setFont(new Font("Calibri Light", Font.PLAIN, 22));
 			butttonPanel.add(button35);
-		}catch(IOException ab) {
-			//JOptionPane.showMessageDialog(null, "error");
-		}catch(IndexOutOfBoundsException abc) {
+
+		} catch(IOException ab) {
+			// JOptionPane.showMessageDialog(null, "error");
+		} catch(IndexOutOfBoundsException abc) {
 			//JOptionPane.showMessageDialog(null, "error 1");
-		}
+		}	
 	}
 }

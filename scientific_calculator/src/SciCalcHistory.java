@@ -9,7 +9,7 @@ public class SciCalcHistory {
 	
     public int dataPlusAns;
 	
-    public int dataS;
+    public int dataEntryCount;
 	
     public String [] dataExpression = new String [dataPlusExpression];
 	
@@ -23,7 +23,7 @@ public class SciCalcHistory {
 		history.createNewFile();
 		FileWriter historyfw = new FileWriter(history);
 		
-		dataS = data;
+		dataEntryCount = data;
 
         do {
 			dataExpression[dataPlusExpression] = expression;
@@ -33,11 +33,11 @@ public class SciCalcHistory {
 			dataPlusExpression++;
 			dataPlusAns++;
 			
-		} while(dataPlusAns != dataS);
+		} while(dataPlusAns != dataEntryCount);
 		historyfw.close();
     }
     	
-	public int dataSplus() {
-		return dataS;
+	public int dataEntryCountplus() {
+		return dataEntryCount;
 	}
 }
